@@ -18,6 +18,8 @@ add_stylesheet('<link rel="stylesheet" href="'.G5_THEME_URL.'/rb.layout/'.$rb_co
 - 지정된 width 를 벗어나면 줄바꿈 되어 생성 됩니다.
 
 - class="flex_box" 를 사용하지 않고 직접 메인페이지를 구성할 수 있습니다.
+
+* GONGGAM Build 홈: 아래 include가 메인 본문에 출력됩니다. 리빌더 모듈만 쓸 경우 이 include 줄을 제거하세요.
 -->
 
-<div class="flex_box"></div>
+<div class="flex_box"><?php include_once G5_THEME_PATH . '/boon-build-home.php'; ?></div>
