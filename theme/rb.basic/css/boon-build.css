@@ -1,11 +1,14 @@
 .boon-build {
-  --bb-main: #1f3d2b;
-  --bb-sub: #374151;
-  --bb-point: #22c55e;
+  --bb-main: #111827;
+  --bb-sub: #334155;
+  --bb-point: #f97316;
   --bb-orange: #ff6900;
-  --bb-bg: #f3f4f6;
-  --bb-text: #1f3d2b;
-  --bb-border: rgba(31, 61, 43, 0.12);
+  --bb-bg: #f5f7fb;
+  --bb-panel: #0f172a;
+  --bb-panel-soft: #182235;
+  --bb-text: #111827;
+  --bb-muted: #64748b;
+  --bb-border: rgba(15, 23, 42, 0.11);
   --bb-shadow: 0 24px 70px rgba(15, 23, 42, 0.14);
   font-family: "Inter", "Noto Sans KR", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   background: var(--bb-bg);
@@ -13,6 +16,10 @@
   line-height: 1.5;
   word-break: keep-all;
   overflow: hidden;
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  margin-left: -50vw;
 }
 
 .boon-build *,
@@ -79,7 +86,7 @@
   color: #fff;
   display: grid;
   place-items: center;
-  box-shadow: 0 14px 30px rgba(31, 61, 43, 0.18);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.2);
 }
 
 .bb-brand strong {
@@ -94,14 +101,14 @@
   margin-top: 1px;
   font-size: 11px;
   font-weight: 800;
-  color: rgba(31, 61, 43, 0.55);
+  color: rgba(17, 24, 39, 0.55);
 }
 
 .bb-nav {
   gap: 34px;
   font-size: 14px;
   font-weight: 900;
-  color: rgba(31, 61, 43, 0.7);
+  color: rgba(17, 24, 39, 0.7);
 }
 
 .bb-nav a:hover {
@@ -128,7 +135,7 @@
 }
 
 .bb-btn-soft {
-  background: rgba(31, 61, 43, 0.07);
+  background: rgba(17, 24, 39, 0.07);
   color: var(--bb-main);
 }
 
@@ -163,7 +170,7 @@
 
 .bb-hero-bg {
   z-index: 0;
-  background: #0b120e;
+  background: #070b12;
 }
 
 .bb-hero-bg img {
@@ -212,7 +219,7 @@
   height: 8px;
   border-radius: 50%;
   background: var(--bb-point);
-  box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.14);
+  box-shadow: 0 0 0 6px rgba(249, 115, 22, 0.16);
 }
 
 .bb-hero h1 {
@@ -329,7 +336,7 @@
 
 .bb-floating-card p {
   margin: 10px 0 0;
-  color: rgba(31, 61, 43, 0.68);
+  color: rgba(17, 24, 39, 0.68);
   font-weight: 800;
 }
 
@@ -361,7 +368,7 @@
 .bb-section-head p,
 .bb-service p {
   margin: 18px 0 0;
-  color: rgba(31, 61, 43, 0.66);
+  color: var(--bb-muted);
   font-size: 19px;
   font-weight: 700;
   line-height: 1.75;
@@ -389,7 +396,7 @@
   border: 1px solid var(--bb-border);
   border-radius: 28px;
   background: #fff;
-  box-shadow: 0 14px 40px rgba(31, 61, 43, 0.06);
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.07);
 }
 
 .bb-three article {
@@ -405,13 +412,15 @@
 
 .bb-three p {
   margin: 14px 0 0;
-  color: rgba(31, 61, 43, 0.68);
+  color: var(--bb-muted);
   font-weight: 700;
   line-height: 1.7;
 }
 
 .bb-service {
-  background: var(--bb-main) !important;
+  background:
+    radial-gradient(circle at top right, rgba(255, 105, 0, 0.18), transparent 34%),
+    linear-gradient(135deg, var(--bb-panel), var(--bb-main)) !important;
   color: #fff;
 }
 
@@ -454,7 +463,7 @@
   min-height: 240px;
   padding: 30px;
   border-radius: 36px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.055);
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
@@ -522,7 +531,7 @@
 
 .bb-course-box li span,
 .bb-time-box div span {
-  color: rgba(31, 61, 43, 0.62);
+  color: var(--bb-muted);
 }
 
 .bb-course-box p {
@@ -547,7 +556,9 @@
 }
 
 .bb-price-card.is-featured {
-  background: var(--bb-main);
+  background:
+    radial-gradient(circle at top right, rgba(255, 105, 0, 0.18), transparent 45%),
+    linear-gradient(160deg, var(--bb-panel-soft), var(--bb-main));
   color: #fff;
   transform: translateY(-10px);
 }
@@ -562,7 +573,7 @@
 .bb-price-card p {
   min-height: 48px;
   margin: 10px 0 24px;
-  color: rgba(31, 61, 43, 0.64);
+  color: var(--bb-muted);
   font-weight: 800;
 }
 
@@ -629,7 +640,7 @@
 }
 
 .bb-review-grid span {
-  color: rgba(31, 61, 43, 0.46);
+  color: var(--bb-muted);
   font-weight: 800;
 }
 
@@ -650,7 +661,7 @@
   margin-bottom: 18px;
   padding: 5px 10px;
   border-radius: 999px;
-  background: rgba(31, 61, 43, 0.08);
+  background: rgba(17, 24, 39, 0.08);
   color: var(--bb-main);
   font-size: 12px;
   font-weight: 900;
@@ -678,7 +689,7 @@
   justify-content: center;
   min-height: 42px;
   border-radius: 14px;
-  background: rgba(31, 61, 43, 0.07);
+  background: rgba(17, 24, 39, 0.07);
   color: var(--bb-main);
   font-size: 14px;
   font-weight: 900;

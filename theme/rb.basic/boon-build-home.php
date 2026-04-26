@@ -75,28 +75,6 @@ function bb_drive_icon($name)
 <link rel="stylesheet" href="<?php echo $bb_theme_css; ?>">
 
 <div class="boon-build">
-  <header class="bb-header">
-    <div class="bb-container bb-header-inner">
-      <a href="<?php echo G5_URL; ?>" class="bb-brand" aria-label="바로바로운전연수 홈">
-        <span class="bb-brand-mark"><?php echo bb_drive_icon('car'); ?></span>
-        <span>
-          <strong>바로바로운전연수</strong>
-          <small>Premium Driving Lesson</small>
-        </span>
-      </a>
-      <nav class="bb-nav" aria-label="메인 메뉴">
-        <a href="#bb-service">서비스</a>
-        <a href="#bb-schedule">교육시간</a>
-        <a href="#bb-pricing">비용</a>
-        <a href="#bb-areas">지역</a>
-      </nav>
-      <div class="bb-header-actions">
-        <a class="bb-btn bb-btn-soft" href="<?php echo htmlspecialchars($bb_kakao, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener"><?php echo bb_drive_icon('message'); ?> 카톡상담</a>
-        <a class="bb-btn bb-btn-dark" href="tel:<?php echo bb_drive_tel($bb_phone); ?>"><?php echo bb_drive_icon('phone'); ?> 전화상담</a>
-      </div>
-    </div>
-  </header>
-
   <section class="bb-hero">
     <div class="bb-hero-bg">
       <img src="https://baro-drive.com/data/editor/2604/thumb-398b7f93792cb2a6fa5accd1f2b2bc50_1775013604_9858_835x455.png" alt="" referrerpolicy="no-referrer">
