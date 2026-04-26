@@ -230,7 +230,16 @@ foreach ($rb_css_files as $rb_css_file) {
 
 add_javascript('<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>', 0);
 add_javascript('<script src="'.G5_THEME_URL.'/rb.js/swiper.js"></script>', 0);
-add_stylesheet('<link rel="stylesheet" href="'.G5_THEME_URL.'/rb.fonts/'.$font.'/'.$font.'.css?ver='.filemtime(G5_THEME_PATH.'/rb.fonts/'.$font.'/'.$font.'.css').'" />', 0);  
+$rb_font = preg_replace('/[^a-zA-Z0-9 _\-.]/', '', $font);
+$rb_font_path = G5_THEME_PATH.'/rb.fonts/'.$rb_font.'/'.$rb_font.'.css';
+$rb_font_url = G5_THEME_URL.'/rb.fonts/'.$rb_font.'/'.$rb_font.'.css';
+if (!is_file($rb_font_path)) {
+    $rb_font = 'Pretendard';
+    $rb_font_path = G5_THEME_PATH.'/rb.fonts/Pretendard/Pretendard.css';
+    $rb_font_url = G5_THEME_URL.'/rb.fonts/Pretendard/Pretendard.css';
+}
+$rb_font_ver = is_file($rb_font_path) ? filemtime($rb_font_path) : G5_SERVER_TIME;
+add_stylesheet('<link rel="stylesheet" href="'.$rb_font_url.'?ver='.$rb_font_ver.'" />', 0);  
 add_stylesheet('<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" />', 0);
 add_javascript('<script src="'.G5_THEME_URL.'/rb.js/rb.common.js"></script>', 0);
 
