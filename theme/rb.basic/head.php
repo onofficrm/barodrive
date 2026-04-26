@@ -29,11 +29,20 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
    
     <?php 
 
-    if (isset($rb_core['layout_hd']) && $rb_core['layout_hd'] == "") {
-        echo "<div class='no_data' style='padding:30px 0 !important; margin-top:0px; border:0px !important; background-color:#f9f9f9;'><span class='no_data_section_ul1 font-B color-000'>선택된 헤더 레이아웃이 없습니다.</span><br>환경설정 패널에서 먼저 헤더 레이아웃을 설정해주세요.</div>";
-    } else if (isset($rb_core['layout_hd'])) { 
+    if (isset($rb_core['layout_hd'])) { 
         // 레이아웃 인클루드
-        include_once(G5_THEME_PATH . '/rb.layout_hd/' . $rb_core['layout_hd'] . '/header.php'); 
+        $rb_layout_hd = preg_replace('/[^a-zA-Z0-9_\-]/', '', $rb_core['layout_hd']);
+        if ($rb_layout_hd === '' && is_file(G5_THEME_PATH . '/rb.layout_hd/basic_row/header.php')) {
+            $rb_layout_hd = 'basic_row';
+            $rb_core['layout_hd'] = 'basic_row';
+        }
+        $rb_layout_hd_path = G5_THEME_PATH . '/rb.layout_hd/' . $rb_layout_hd . '/header.php';
+        if (!is_file($rb_layout_hd_path) && is_file(G5_THEME_PATH . '/rb.layout_hd/basic_row/header.php')) {
+            $rb_layout_hd = 'basic_row';
+            $rb_core['layout_hd'] = 'basic_row';
+            $rb_layout_hd_path = G5_THEME_PATH . '/rb.layout_hd/basic_row/header.php';
+        }
+        include_once($rb_layout_hd_path); 
     } else {
         echo "<div class='no_data' style='padding:30px 0 !important; margin-top:0px; border:0px !important; background-color:#f9f9f9;'>헤더 레이아웃 설정이 올바르지 않습니다.</span><br>환경설정 패널에서 먼저 헤더 레이아웃을 설정해주세요.</div>";
     }
