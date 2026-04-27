@@ -1,4 +1,72 @@
 /* 레이아웃 CSS */
+.gnb_wrap .inner {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    min-height: 86px;
+}
+
+.gnb_wrap .logo_wrap,
+.gnb_wrap #cbp-hrmenu,
+.gnb_wrap .snb_wrap {
+    float: none !important;
+}
+
+.gnb_wrap .logo_wrap {
+    flex: 0 0 auto;
+}
+
+.gnb_wrap #cbp-hrmenu {
+    flex: 1 1 auto;
+}
+
+.gnb_wrap #cbp-hrmenu > ul {
+    float: none !important;
+    display: flex;
+    align-items: center;
+    gap: 34px;
+    line-height: 1;
+}
+
+.gnb_wrap #cbp-hrmenu > ul > li {
+    float: none !important;
+    padding: 0 !important;
+}
+
+.gnb_wrap .snb_wrap {
+    flex: 0 0 auto;
+    margin-left: auto;
+}
+
+.gnb_wrap .snb_wrap .qm_wrap,
+.gnb_wrap .snb_wrap .member_info_wrap {
+    display: none !important;
+}
+
+.gnb_wrap .snb_wrap .my_btn_wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gnb_wrap .inner > .cb,
+.gnb_wrap .snb_wrap > .cb {
+    display: none !important;
+}
+
 @media all and (max-width:1024px) { 
-    .gnb_wrap .inner {padding-left: 0px !important; padding-right: 0px !important;}
+    .gnb_wrap .inner {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        gap: 16px;
+        min-height: 72px;
+    }
+
+    .gnb_wrap #cbp-hrmenu {
+        display: none !important;
+    }
+
+    .gnb_wrap .snb_wrap {
+        margin-left: auto;
+    }
 }

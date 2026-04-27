@@ -32,15 +32,15 @@ include_once(G5_PATH.'/rb/rb.mod/alarm/alarm.php'); // 실시간 알림
     if (isset($rb_core['layout_hd'])) { 
         // 레이아웃 인클루드
         $rb_layout_hd = preg_replace('/[^a-zA-Z0-9_\-]/', '', $rb_core['layout_hd']);
-        if ($rb_layout_hd === '' && is_file(G5_THEME_PATH . '/rb.layout_hd/basic_row/header.php')) {
-            $rb_layout_hd = 'basic_row';
-            $rb_core['layout_hd'] = 'basic_row';
+        if ($rb_layout_hd === '' && is_file(G5_THEME_PATH . '/rb.layout_hd/basic/header.php')) {
+            $rb_layout_hd = 'basic';
+            $rb_core['layout_hd'] = 'basic';
         }
         $rb_layout_hd_path = G5_THEME_PATH . '/rb.layout_hd/' . $rb_layout_hd . '/header.php';
-        if (!is_file($rb_layout_hd_path) && is_file(G5_THEME_PATH . '/rb.layout_hd/basic_row/header.php')) {
-            $rb_layout_hd = 'basic_row';
-            $rb_core['layout_hd'] = 'basic_row';
-            $rb_layout_hd_path = G5_THEME_PATH . '/rb.layout_hd/basic_row/header.php';
+        if (!is_file($rb_layout_hd_path) && is_file(G5_THEME_PATH . '/rb.layout_hd/basic/header.php')) {
+            $rb_layout_hd = 'basic';
+            $rb_core['layout_hd'] = 'basic';
+            $rb_layout_hd_path = G5_THEME_PATH . '/rb.layout_hd/basic/header.php';
         }
         include_once($rb_layout_hd_path); 
     } else {
