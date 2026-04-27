@@ -55,45 +55,53 @@ header("Pragma: no-cache"); // HTTP/1.0
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <!-- } -->
 
-<?php if(isset($seo['se_title']) && $seo['se_title'] || isset($seo['se_keywords']) && $seo['se_keywords'] || isset($seo['se_description']) && $seo['se_description']) { ?>
+<?php
+$rb_auto_seo_meta = function_exists('rb_auto_board_seo_meta') ? rb_auto_board_seo_meta() : null;
+if (!empty($rb_auto_seo_meta['title'])) {
+    $g5_head_title = $rb_auto_seo_meta['title'];
+}
+?>
+
+<?php if(!empty($rb_auto_seo_meta)) { ?>
+<!-- AUTO BOARD SEO META { -->
+<meta name="title" content="<?php echo rb_auto_seo_escape($rb_auto_seo_meta['title']); ?>" />
+<meta name="description" content="<?php echo rb_auto_seo_escape($rb_auto_seo_meta['description']); ?>" />
+<?php if(!empty($rb_auto_seo_meta['keywords'])) { ?>
+<meta name="keywords" content="<?php echo rb_auto_seo_escape($rb_auto_seo_meta['keywords']); ?>" />
+<?php } ?>
+<meta name="robots" content="index,follow" />
+<link rel="canonical" href="<?php echo rb_auto_seo_escape($rb_auto_seo_meta['canonical']); ?>" />
+<!-- } AUTO BOARD SEO META -->
+<?php } else if(isset($seo['se_title']) && $seo['se_title'] || isset($seo['se_keywords']) && $seo['se_keywords'] || isset($seo['se_description']) && $seo['se_description']) { ?>
 <!-- META { -->
 <meta name="title" content="<?php echo $seo['se_title'] ?>" />
 <meta name="keywords" content="<?php echo $seo['se_keywords'] ?>" />
 <meta name="description" content="<?php echo $seo['se_description'] ?>" />
 <meta name="robots" content="index,follow" />
-<!-- } --
+<!-- } -->
 <?php } ?>
 
 <!-- OG { -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="<?php echo getCurrentUrl() ?>" />
-<?php if(isset($bo_table) && $bo_table && $wr_id) { ?>
-   
-    <?php                     
-        //게시물 정보
-        $views = get_view($write, $board, $board_skin_path);
-        $meta_title = $views['wr_subject']; 
-
-        if(isset($views['file'][0]['file']) && $views['file'][0]['file']) {
-            $meta_img = G5_DATA_URL.'/file/'.$bo_table.'/'.urlencode($views['file'][0]['file']);
-        } else { 
-            $matches = get_editor_image($views['wr_content']);
-            for ($i = 0; $i < count($matches[1]); $i++){
-                $img = $matches[1][$i];
-                preg_match("/src=[\'\"]?([^>\'\"]+[^>\'\"]+)/i", $img, $m); $src = $m[1];
-            }
-            $meta_img = isset($src) ? $src : '';
-        }
-        $meta_description_cut = strip_tags($views['wr_content']);
-        $meta_description_cut = preg_replace("/<(.*?)\>/","",$meta_description_cut);
-        $meta_description_cut = preg_replace("/&nbsp;/","",$meta_description_cut);
-        $meta_description = cut_str($meta_description_cut,100);
-    ?>
-    <meta property="og:title" content="<?php echo $views['wr_subject'] ?>"/>
-    <meta property="og:description" content="<?php echo $meta_description; ?>" />
-    <meta property="og:image" content="<?php echo $meta_img ?>?ver=<?php echo G5_SERVER_TIME ?>"/>
-    
+<?php if(!empty($rb_auto_seo_meta)) { ?>
+<meta property="og:type" content="article">
+<meta property="og:url" content="<?php echo rb_auto_seo_escape($rb_auto_seo_meta['canonical']); ?>" />
+<meta property="og:title" content="<?php echo rb_auto_seo_escape($rb_auto_seo_meta['title']); ?>" />
+<meta property="og:description" content="<?php echo rb_auto_seo_escape($rb_auto_seo_meta['description']); ?>" />
+<?php if(!empty($rb_auto_seo_meta['site_name'])) { ?>
+<meta property="og:site_name" content="<?php echo rb_auto_seo_escape($rb_auto_seo_meta['site_name']); ?>" />
+<?php } ?>
+<?php if(!empty($rb_auto_seo_meta['image'])) { ?>
+<meta property="og:image" content="<?php echo rb_auto_seo_escape($rb_auto_seo_meta['image']); ?>" />
+<?php } ?>
+<meta name="twitter:card" content="<?php echo !empty($rb_auto_seo_meta['image']) ? 'summary_large_image' : 'summary'; ?>" />
+<meta name="twitter:title" content="<?php echo rb_auto_seo_escape($rb_auto_seo_meta['title']); ?>" />
+<meta name="twitter:description" content="<?php echo rb_auto_seo_escape($rb_auto_seo_meta['description']); ?>" />
+<?php if(!empty($rb_auto_seo_meta['image'])) { ?>
+<meta name="twitter:image" content="<?php echo rb_auto_seo_escape($rb_auto_seo_meta['image']); ?>" />
+<?php } ?>
 <?php } else { ?>
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<?php echo getCurrentUrl() ?>" />
    
     <?php if(isset($seo['se_og_title']) && $seo['se_og_title']) { ?>
         <meta property="og:title" content="<?php echo $seo['se_og_title'] ?>" />
@@ -132,8 +140,11 @@ if(isset($seo['se_google_meta']) && $seo['se_google_meta']) {
 
 
 <?php
-if(isset($config['cf_add_meta']) && $config['cf_add_meta'])
-    echo $config['cf_add_meta'].PHP_EOL;
+if(isset($config['cf_add_meta']) && $config['cf_add_meta']) {
+    echo !empty($rb_auto_seo_meta) && function_exists('rb_auto_seo_filter_extra_meta')
+        ? rb_auto_seo_filter_extra_meta($config['cf_add_meta']).PHP_EOL
+        : $config['cf_add_meta'].PHP_EOL;
+}
 ?>
 
 <title><?php echo $g5_head_title; ?></title>
