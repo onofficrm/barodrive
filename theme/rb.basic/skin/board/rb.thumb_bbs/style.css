@@ -562,6 +562,11 @@ box-shadow:inset 0 1px 2px rgba(0, 0, 0, 0.1)}
 .rb_bbs_wrap .rb_inp_wrap_confirm .btn_cancel {width:auto;background-color: #aaa;color: #fff;height: 47px;border-radius: 10px;border: 0px; line-height: 47px; font-size: 14px; font-weight: normal; padding-left: 30px; padding-right: 30px;}
 .rb_bbs_wrap .rb_inp_wrap_confirm .btn_submit {width:auto;background-color: #AA20FF;color: #fff;height: 47px;border-radius: 10px;border: 0px; font-size: 14px; font-weight: normal; padding-left: 30px; padding-right: 30px;}
 .rb_bbs_wrap .rb_inp_wrap_confirm .btn_submit:hover {opacity: 0.8}
+.rb_bbs_wrap #bo_w .btn_confirm.write_div,
+.rb_bbs_wrap.rb_bbs_write_wrap .rb_inp_wrap_confirm {position:static !important;clear:both;display:flex;align-items:center;justify-content:center;gap:8px;margin:16px 0 30px;padding:0;transform:none !important}
+.rb_bbs_wrap #bo_w .btn_confirm.write_div .btn,
+.rb_bbs_wrap.rb_bbs_write_wrap .rb_inp_wrap_confirm .btn_cancel,
+.rb_bbs_wrap.rb_bbs_write_wrap .rb_inp_wrap_confirm .btn_submit {position:static !important;top:auto;right:auto;bottom:auto;left:auto;float:none;min-width:110px;transform:none !important}
 .rb_bbs_wrap #bo_vc_w #wr_content {border-bottom-left-radius: 0px !important; border-bottom-right-radius: 0px !important;}
 /* } */
 

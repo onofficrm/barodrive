@@ -30,6 +30,18 @@ if (!sql_query(" DESCRIBE {$g5['menu_table']} ", false)) {
     );
 }
 
+$menu_columns = array(
+    'me_level' => "`me_level` tinyint(4) NOT NULL DEFAULT '1' AFTER `me_mobile_use`",
+    'me_level_opt' => "`me_level_opt` tinyint(4) NOT NULL DEFAULT '1' AFTER `me_level`",
+);
+
+foreach ($menu_columns as $column => $attributes) {
+    $column_check = sql_query(" SHOW COLUMNS FROM {$g5['menu_table']} LIKE '{$column}' ", false);
+    if (!sql_num_rows($column_check)) {
+        sql_query(" ALTER TABLE {$g5['menu_table']} ADD {$attributes} ", true);
+    }
+}
+
 $sql = " select * from {$g5['menu_table']} order by me_id ";
 $result = sql_query($sql);
 
@@ -82,6 +94,10 @@ $sub_menu_info = '';
                     $search  = array('"', "'");
                     $replace = array('&#034;', '&#039;');
                     $me_name = str_replace($search, $replace, $row['me_name']);
+                    $me_level = isset($row['me_level']) ? (int)$row['me_level'] : 1;
+                    $me_level = max(1, min(10, $me_level));
+                    $me_level_opt = isset($row['me_level_opt']) ? (int)$row['me_level_opt'] : 1;
+                    $me_level_opt = in_array($me_level_opt, array(1, 2), true) ? $me_level_opt : 1;
                 ?>
                     <tr class="<?php echo $bg; ?> menu_list menu_group_<?php echo substr($row['me_code'], 0, 2); ?>">
                         <td class="td_category<?php echo $sub_menu_class; ?>">
@@ -120,13 +136,13 @@ $sub_menu_info = '';
                         </td>
                         <td class="td_num">
                             <label for="me_level_<?php echo $i; ?>" class="sound_only">권한</label>
-                            <?php echo get_member_level_select('me_level[]', 1, $member['mb_level'], $row['me_level']) ?>
+                            <?php echo get_member_level_select('me_level[]', 1, $member['mb_level'], $me_level) ?>
                         </td>
                         <td class="td_mng" style="min-width:150px;">
                             <label for="me_level_opt_<?php echo $i; ?>" class="sound_only">옵션</label>
                             <select id="me_level_opt" name="me_level_opt[]">
-                            <option value="1" <?php if (isset($row['me_level_opt']) && $row['me_level_opt'] == "1") { ?>selected<?php } ?>>레벨 부터 접근가능</option>
-                            <option value="2" <?php if (isset($row['me_level_opt']) && $row['me_level_opt'] == "2") { ?>selected<?php } ?>>레벨만 접근가능</option>
+                            <option value="1" <?php echo get_selected($me_level_opt, 1, true); ?>>레벨 부터 접근가능</option>
+                            <option value="2" <?php echo get_selected($me_level_opt, 2, true); ?>>레벨만 접근가능</option>
                             </select>
                         </td>
 

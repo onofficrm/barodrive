@@ -300,3 +300,7 @@
 #bo_w .btn_confirm {text-align:center;margin:20px 0}
 #bo_w .btn_submit {width:49%;height:45px;padding:0 30px;font-weight:bold;font-size:1.083em}
 #bo_w .btn_cancel {width:49%;line-height:45px;height:45px;padding:0 30px;font-weight:bold;font-size:1.083em;background:#fff;border-radius:3px;border:1px solid #dcdcdc}
+#bo_w #fwrite {display:block;clear:both;overflow:visible}
+#bo_w .btn_confirm {position:static !important;clear:both;display:flex;align-items:center;justify-content:center;gap:8px;margin:16px 0 30px;padding:0;transform:none !important}
+#bo_w .btn_confirm .btn_cancel,
+#bo_w .btn_confirm #btn_submit {position:static !important;top:auto;right:auto;bottom:auto;left:auto;flex:1;height:45px;line-height:45px;padding:0 12px;transform:none !important}

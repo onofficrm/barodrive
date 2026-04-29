@@ -10,6 +10,18 @@ if ($is_admin != 'super') {
 
 check_admin_token();
 
+$menu_columns = array(
+    'me_level' => "`me_level` tinyint(4) NOT NULL DEFAULT '1' AFTER `me_mobile_use`",
+    'me_level_opt' => "`me_level_opt` tinyint(4) NOT NULL DEFAULT '1' AFTER `me_level`",
+);
+
+foreach ($menu_columns as $column => $attributes) {
+    $column_check = sql_query(" SHOW COLUMNS FROM {$g5['menu_table']} LIKE '{$column}' ", false);
+    if (!sql_num_rows($column_check)) {
+        sql_query(" ALTER TABLE {$g5['menu_table']} ADD {$attributes} ", true);
+    }
+}
+
 // 이전 메뉴정보 삭제
 $sql = " delete from {$g5['menu_table']} ";
 sql_query($sql);
@@ -31,6 +43,10 @@ for ($i = 0; $i < $count; $i++) {
     $code    = is_array($_POST['code']) ? strip_tags($_POST['code'][$i]) : '';
     $me_name = is_array($_POST['me_name']) ? strip_tags($_POST['me_name'][$i]) : '';
     $me_link = (preg_match('/^javascript/i', $_POST['me_link'][$i]) || preg_match('/script:/i', $_POST['me_link'][$i])) ? G5_URL : strip_tags(clean_xss_attributes($_POST['me_link'][$i]));
+    $me_level = isset($_POST['me_level'][$i]) ? (int)$_POST['me_level'][$i] : 1;
+    $me_level = max(1, min(10, $me_level));
+    $me_level_opt = isset($_POST['me_level_opt'][$i]) ? (int)$_POST['me_level_opt'][$i] : 1;
+    $me_level_opt = in_array($me_level_opt, array(1, 2), true) ? $me_level_opt : 1;
 
     if (!$code || !$me_name || !$me_link) {
         continue;
@@ -71,8 +87,8 @@ for ($i = 0; $i < $count; $i++) {
                     me_order        = '" . sql_real_escape_string(strip_tags($_POST['me_order'][$i])) . "',
                     me_use          = '" . sql_real_escape_string(strip_tags($_POST['me_use'][$i])) . "',
                     me_mobile_use   = '" . sql_real_escape_string(strip_tags($_POST['me_mobile_use'][$i])) . "',
-                    me_level   = '" . sql_real_escape_string(strip_tags($_POST['me_level'][$i])) . "',
-                    me_level_opt   = '" . sql_real_escape_string(strip_tags($_POST['me_level_opt'][$i])) . "' ";
+                    me_level        = '" . $me_level . "',
+                    me_level_opt    = '" . $me_level_opt . "' ";
     sql_query($sql);
 }
 
